@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//import Test from './containers/Test';
+//import Library from './containers/Library';
 import Home from './containers/Home';
 import * as serviceWorker from './serviceWorker';
-
+import './assets/scss/main.scss'
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from "./assets/theme"
 ReactDOM.render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <Home />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

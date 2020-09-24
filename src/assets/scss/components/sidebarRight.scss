@@ -1,0 +1,19 @@
+.sidebar-right{
+    background-color: #f1f1f1;
+    height: 100vh;
+    width:0;
+    box-shadow: none;
+    padding:0;
+    transition: width 0.3s ease-in-out;
+    &__active{
+        width: 2000px;
+        padding:120px 40px 80px 40px;
+    }
+    .icon-close{
+        position: absolute;
+    right: 4px;
+    top: 71px;
+    }
+
+}
+
