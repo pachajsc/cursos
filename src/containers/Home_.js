@@ -31,6 +31,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import { courses } from '../mock/courses'
 import LinkIcon from '@material-ui/icons/Link';
 import PrintIcon from '@material-ui/icons/Print';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const drawerWidth = 320;
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
   listText: {
-    margin: '0 -3px 0 0',
+    margin: '0',
     position: 'relative',
     right: '2px',
   },
@@ -240,33 +243,45 @@ export default function Home() {
 
         </div>
         <Divider />
-        {open ? (
-          <ListItem button onClick={handleClick}>
-            <ListItemText primary="1. Design Thinking" />
-            {openExpand ? <ExpandLess /> : <ExpandMore />}
+        <div style={open ? {overflow:'auto'} : {overflow:'hidden'}}>
+        {courses[0].topics.map((topic, value) => (
+          <>
+        {open  ? (
+          <ListItem button onClick={courses[0].topics[value].subTopics.length != 0 ? ()=>handleClick(value) : null}>
+            <ListItemText primary={topic.title} />
+            {courses[0].topics[value].subTopics.length != 0 ? (
+              <>
+              {openExpand ? <ExpandLess /> : <ExpandMore />}
+              </>
+            ): null}
+            
           </ListItem>
         ) : (
             <ListItem >
-              <ListItemText primary="T.1" />
+              <ListItemText primary={topic.title} />
             </ListItem>
           )}
-
-
         <Divider />
-        <Collapse in={openExpand} timeout="auto" unmountOnExit>
-
+        <Collapse in={openExpand} timeout="auto" >
           <List className={classes.list}>
-            {courses[0].topics[0].subTopics.map((text, value) => {
-              const labelId = `checkbox-list-label-${value}`;
-
+            {courses[0].topics[value].subTopics.map((subtopic, value) => {
               return (
                 <>
                   <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)} className={selectedIndex === value ? classes.listSelected : null} selected={selectedIndex === value}>
                     <ListItemIcon className={classes.listItem}>
 
-                      {open && (<><VideocamIcon fontSize="small" /><ListItemText id={labelId} primary={text.title} className="ml-1" /></>)}
+                      {open && (<><VideocamIcon fontSize="small" /><ListItemText  primary={subtopic.title} className="ml-1" /></>)}
                       <div></div>
-                      <Checkbox
+                      <FormControlLabel
+                        control={<Checkbox color="primary" icon={<CheckCircleOutlineIcon fontSize="small" />} checkedIcon={<CheckCircleIcon fontSize="small"/>} name="checkedH" />}
+                        className={classes.listText}
+                        edge="end"
+                        checked={checked.indexOf(value) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                       
+                      />
+                      {/* <Checkbox
                         color="primary"
                         className={classes.listText}
                         edge="end"
@@ -274,7 +289,7 @@ export default function Home() {
                         tabIndex={-1}
                         disableRipple
                         inputProps={{ 'aria-labelledby': labelId }}
-                      />
+                      /> */}
                     </ListItemIcon>
 
                   </ListItem>
@@ -283,7 +298,11 @@ export default function Home() {
               );
             })}
           </List>
+         
         </Collapse>
+        </>
+        ))}
+        </div>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -334,6 +353,7 @@ export default function Home() {
             className="icon-close"
           ><CloseIcon />
           </IconButton>
+          <Typography variant="h5">Notas</Typography>
           <form className={classes.root} noValidate autoComplete="off">
             <Grid container className="mt-4">
               <Grid sm={12} className="mb-3">

@@ -163,7 +163,31 @@ export const courses=[
             "description": "Empty Description",
             "priority": 1,
             "slug": "tema-2",
-            "subTopics": []
+            "subTopics": [
+                {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 11",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-11",
+                "viewed": false
+            },
+            {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 11",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-11",
+                "viewed": false
+            }]
         },
         {
             "uuid": "615e0c39-ba38-464a-bfa5-5f94fd36d253",
