@@ -1,29 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Divider from '@material-ui/core/Divider';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { courses } from '../mock/courses'
+import {Accordion, AccordionSummary, AccordionDetails, Checkbox, FormControlLabel, Divider, ListItem, List, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
+import {Videocam, ExpandMore, CheckCircleOutline, CheckCircle} from '@material-ui/icons';
+
+import { courses } from '../mock/courses';
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
     padding: 0,
     backgroundColor: '#f7f7f7'
   },
+  accordionSummary: {
+    padding: '0px 24px 0px 16px'
+  },
   accordionContent: {
-    padding: 0
+    padding: '0'
+  },
+  buttonList: {
+    padding: '0 2px 0 16px'
   },
   list: {
     width: '100%'
@@ -35,78 +30,77 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     width: '100%'
   },
+  listSelected: {
+    borderLeft: '3px solid #691196'
+  },
+  checkItem:{
+    position: 'relative',
+    left: '14px'
+  }
+  
 });
 
-export default function ListItems() {
+const ListItems = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [openExpand, setOpenExpand] = React.useState(false);
   const [checked, setChecked] = React.useState([0]);
-  const handleClick = (value) => {
-    setOpenExpand(!openExpand);
+  const [expanded, setExpanded] = React.useState(0);
+  console.log("expand", props.selectedTopic)
+  
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : true);
   };
 
-  const handleToggle = (value) => () => {
-    setSelectedIndex(value);
-  };
+  React.useEffect(() => {
+    setExpanded(props.selectedTopic);
+  });
+
+  
+
   return (
     <div className={classes.root}>
-    
-      {courses[0].topics.map((topic, value) => (
-        <>
-        {courses[0].topics[value].subTopics.length !== 0 ? (
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-label="Expand"
-            aria-controls="additional-actions1-content"
-            id="additional-actions1-header"
-          >
-            <Typography variant="h6" component="h2">{topic.title}</Typography>
-          </AccordionSummary>
-         
-          <AccordionDetails className={classes.accordionContent}>
-            <List className={classes.list}>
-              {courses[0].topics[value].subTopics.map((subtopic, value) => {
-                return (
-                  <>
-                  
-                    <Divider />
-                    <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)} className={selectedIndex === value ? classes.listSelected : null} selected={selectedIndex === value}>
-                      <ListItemIcon className={classes.listItem}>
+      {courses[0].topics.map((topic, valueTopic) => (
+        
+        <>   
+            <Accordion expanded={expanded === valueTopic} onChange={handleChange(valueTopic)}>
+              <AccordionSummary
+                className={classes.accordionSummary}
+                expandIcon={<ExpandMore />}
+                onClick={courses[0].topics[valueTopic].subTopics.length !== 0 ? props.handleTopic(valueTopic) : null}
+              >
+                <Typography variant={'h6'} components={'h2'}>{topic.title}</Typography>
+              </AccordionSummary>
+              <AccordionDetails className={classes.accordionContent}>
+                <List className={classes.list}>
+                  {courses[0].topics[valueTopic].subTopics.map((subtopic, value) => {
+                    return (
+                      <>
+                        <Divider />
+                        <ListItem key={value} role={undefined} dense button onClick={props.handleSubTopic(value)} className={props.selectedSubtopic === value  ? classes.listSelected : null} selected={props.selectedSubtopic === value}>
+                          <ListItemIcon className={classes.listItem}>
 
-                        {open && (<><VideocamIcon fontSize="small" /><ListItemText primary={subtopic.title} className="ml-1" /></>)}
-                        <div></div>
-                        <FormControlLabel
-                          control={<Checkbox color="primary" icon={<CheckCircleOutlineIcon fontSize="small" />} checkedIcon={<CheckCircleIcon fontSize="small" />} name="checkedH" />}
-                          className={classes.listText}
-                          edge="end"
-                          checked={checked.indexOf(value) !== -1}
-                          tabIndex={-1}
-                          disableRipple
+                            {props.open && (<><Videocam fontSize="small" /><ListItemText primary={subtopic.title} className="ml-1" /></>)}
+                            <div></div>
+                            <FormControlLabel
+                              control={<Checkbox className={classes.checkItem} color="primary" icon={<CheckCircleOutline fontSize="small" />} checkedIcon={<CheckCircle fontSize="small" />} name="checkedH" />}
+                              className={classes.listText}
+                              edge="end"
+                              checked={checked.indexOf(value) !== -1}
+                              tabIndex={-1}
+                              disableRipple
 
-                        />
-                      </ListItemIcon>
-
-                    </ListItem>
-                   
-                  </>
-                );
-              })}
-            </List>
-          </AccordionDetails>
-          
-        </Accordion>
-
-        ):(null)}
+                            />
+                          </ListItemIcon>
+                        </ListItem>
+                      </>
+                    );
+                  })}
+                </List>
+              </AccordionDetails>
+            </Accordion>  
         </>
       ))}
-
-     
-
-
-
     </div>
   );
 }
+
+export default ListItems

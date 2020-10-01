@@ -4,10 +4,25 @@
     width:0;
     box-shadow: none;
     padding:0;
-    transition: width 0.3s ease-in-out;
+    
     &__active{
         width: 2000px;
-        padding:120px 40px 80px 40px;
+        padding:85px 20px 80px 20px;
+        
+    }
+    .animate-fade-in{
+        animation-name: animateSection;
+        animation-duration: 1.5s;
+        
+    }
+    
+    @keyframes animateSection {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
     }
     .icon-close{
         position: absolute;

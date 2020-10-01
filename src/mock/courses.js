@@ -26,6 +26,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 1",
+                    "video":"https://www.youtube.com/embed/R7TDAu0cbdA",
                     "description": "Empty Description",
                     "priority": 1,
                     "slug": "sub-tema-1",
@@ -38,6 +39,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 2",
+                    "video":"https://player.vimeo.com/video/207141236",
                     "description": "Empty Description",
                     "priority": 1,
                     "slug": "sub-tema-2",
@@ -50,6 +52,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 3",
+                    "video":"https://www.youtube.com/embed/oc47O9iTnLc",
                     "description": "<p>Empty Descriptionassa</p>",
                     "priority": 1,
                     "slug": "sub-tema-3",
@@ -170,10 +173,10 @@ export const courses=[
                 "updatedAt": "2020-09-03T18:57:34+00:00",
                 "status": "draft",
                 "version": 8,
-                "title": "Sub Tema 11",
+                "title": "Sub Tema 1",
                 "description": "Empty Description",
                 "priority": 1,
-                "slug": "sub-tema-11",
+                "slug": "sub-tema-1",
                 "viewed": false
             },
             {
@@ -182,10 +185,10 @@ export const courses=[
                 "updatedAt": "2020-09-03T18:57:34+00:00",
                 "status": "draft",
                 "version": 8,
-                "title": "Sub Tema 11",
+                "title": "Sub Tema 2",
                 "description": "Empty Description",
                 "priority": 1,
-                "slug": "sub-tema-11",
+                "slug": "sub-tema-2",
                 "viewed": false
             }]
         },
@@ -199,7 +202,31 @@ export const courses=[
             "description": "Empty Description",
             "priority": 1,
             "slug": "tema-3",
-            "subTopics": []
+            "subTopics": [
+                {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 1",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-1",
+                "viewed": false
+            },
+            {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 2",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-2",
+                "viewed": false
+            }]
         },
         {
             "uuid": "63744c79-80de-48e1-8e9c-bf50d3dd734e",
@@ -211,7 +238,31 @@ export const courses=[
             "description": "Empty Description",
             "priority": 1,
             "slug": "tema-4",
-            "subTopics": []
+            "subTopics": [
+                {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 1",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-1",
+                "viewed": false
+            },
+            {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 2",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-2",
+                "viewed": false
+            }]
         },
         {
             "uuid": "bcbf5487-a729-4e21-b67f-f14a949cbc99",
@@ -223,7 +274,31 @@ export const courses=[
             "description": "Empty Description",
             "priority": 1,
             "slug": "tema-5",
-            "subTopics": []
+            "subTopics":  [
+                {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 1",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-1",
+                "viewed": false
+            },
+            {
+                "uuid": "f32a11d6-48c1-4144-bca8-349936bbbf83",
+                "createdAt": "2020-09-03T18:02:55+00:00",
+                "updatedAt": "2020-09-03T18:57:34+00:00",
+                "status": "draft",
+                "version": 8,
+                "title": "Sub Tema 2",
+                "description": "Empty Description",
+                "priority": 1,
+                "slug": "sub-tema-2",
+                "viewed": false
+            }]
         }
     ]
     
