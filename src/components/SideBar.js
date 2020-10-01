@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Grid, Button, Typography, InputAdornment, withStyles, makeStyles, Tab, Tabs } from '@material-ui/core';
+import { TextField, Grid, Button, Typography, InputAdornment, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import ResizePanel from "react-resize-panel";
 import DesignIcon from '../assets/images/icon.svg'
@@ -24,40 +24,6 @@ const useStyles = makeStyles((theme) => ({
     top:12
   }
 }));
-
-
-const AntTab = withStyles((theme) => ({
-  root: {
-    textTransform: 'none',
-    minWidth: 72,
-    fontWeight: theme.typography.fontWeightRegular,
-    marginRight: theme.spacing(4),
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-      color: '#40a9ff',
-      opacity: 1,
-    },
-    '&$selected': {
-      color: '#1890ff',
-      fontWeight: theme.typography.fontWeightMedium,
-    },
-    '&:focus': {
-      color: '#40a9ff',
-    },
-  },
-  selected: {},
-}))((props) => <Tab disableRipple {...props} />);
 
 function a11yProps(index) {
   return {
@@ -85,16 +51,6 @@ function TabPanel(props) {
     </div>
   );
 }
-const AntTabs = withStyles({
-  root: {
-    borderBottom: '1px solid #e8e8e8',
-  },
-  indicator: {
-    backgroundColor: '#1890ff',
-  },
-})(Tabs);
-
-
 const SideBar = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -102,7 +58,6 @@ const SideBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <>
       {props.openSide && (
@@ -111,11 +66,11 @@ const SideBar = (props) => {
             <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>Design Thinking</Typography>
             <div className={classes.root}>
               <div className={classes.contentTabs}>
-                <AntTabs value={value} onChange={handleChange} aria-label="ant example">
-                  <AntTab label="Notas" {...a11yProps(0)} />
-                  <AntTab label="Tab 2" {...a11yProps(1)} />
-                  <AntTab label="Tab 3" {...a11yProps(2)} />
-                </AntTabs>
+                <Tabs  value={value} onChange={handleChange} aria-label="ant example">
+                  <Tab  label="Notas" {...a11yProps(0)} />
+                  <Tab  label="Tab 2" {...a11yProps(1)} />
+                  <Tab  label="Tab 3" {...a11yProps(2)} />
+                </Tabs >
                 <div className={classes.tabContainer}>
                   <TabPanel value={value} index={0}>
                     <form noValidate autoComplete="off">

@@ -8,10 +8,13 @@ import * as serviceWorker from './serviceWorker';
 import './assets/scss/main.scss'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from "./assets/theme"
+import ListItemsContextTag from './contexts/listItemsContext';
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-    <Home />
+      <ListItemsContextTag>
+        <Home />
+      </ListItemsContextTag>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
