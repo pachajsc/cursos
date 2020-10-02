@@ -6,6 +6,7 @@ import { Drawer, Typography, Divider, Grid} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import DesignIcon from '../assets/images/icon.svg'
 import { ListItemsContext } from '../contexts/listItemsContext';
+import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 const drawerWidth = 320;
 
 
@@ -77,47 +78,27 @@ const useStyles = makeStyles((theme) => ({
 const Layout = () => {
 
   const context = React.useContext(ListItemsContext);
+  const contextSide = React.useContext(SideBarActionsContext);
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [openSide, setOpenSide] = React.useState(true);
-  const [openExpand, setOpenExpand] = React.useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-    setOpenExpand(true)
-  };
-
-  const handleDrawerCloseAll = () => {
-    setOpen(false);
-    setOpenSide(false);
-    setOpenExpand(true)
-  };
-
-  const handleCommentsOpen = () => {
-    setOpenSide(!openSide);
-  }
+  
 
   return (
     <Grid className={classes.root}>
       <CssBaseline />
       
-      <NavBar handleCommentsOpen={handleCommentsOpen} handleDrawerOpen={handleDrawerOpen} open={open} handleDrawerClose={handleDrawerClose} handleDrawerCloseAll={handleDrawerCloseAll} />
+      <NavBar/>
       
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
+          [classes.drawerOpen]: contextSide.open,
+          [classes.drawerClose]: !contextSide.open,
         })}
         classes={{
           paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
+            [classes.drawerOpen]: contextSide.open,
+            [classes.drawerClose]: !contextSide.open,
           }),
         }}
       >
@@ -127,11 +108,11 @@ const Layout = () => {
         <Divider />
         <Grid container
           direction="row"
-          justify={open ? "flex-start" : "flex-end"}
-          alignItems="center" className={classes.contentTitle}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{open && 'Design Thinking'}</Typography></Grid>
+          justify={contextSide.open ? "flex-start" : "flex-end"}
+          alignItems="center" className={classes.contentTitle}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && 'Design Thinking'}</Typography></Grid>
         <Divider />
-        <Grid style={open ? { overflow: 'auto' } : { overflow: 'hidden' }}>
-          <ListItems open={open} handleSubTopic={context.handleSubTopic} handleTopic={context.handleTopic} selectedSubtopic={context.selectedSubtopic} selectedTopic={context.selectedTopic} />
+        <Grid style={contextSide.open ? { overflow: 'auto' } : { overflow: 'hidden' }}>
+          <ListItems/>
         </Grid>
       </Drawer>
       
@@ -152,9 +133,7 @@ const Layout = () => {
         </Grid>
 
       </Grid>
-
-      <SideBar openSide={openSide} closeSide={handleCommentsOpen} />
-
+      <SideBar/>
     </Grid>
   );
 }

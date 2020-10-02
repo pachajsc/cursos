@@ -6,7 +6,9 @@ export const ListItemsContext = React.createContext();
 const ListItemsContextTag = ({ children }) => {
     const [selectedSubtopic, setSelectedSubtopic] = React.useState(0);
     const [selectedTopic, setSelectedTopic] = React.useState(0);
-
+    const [checked, setChecked] = React.useState([0]);
+    const [expanded, setExpanded] = React.useState(0);
+    
     const maxTopics = courses[0].topics.length;
     const maxSubTopics = courses[0].topics[selectedTopic].subTopics.length;
 
@@ -35,9 +37,16 @@ const ListItemsContextTag = ({ children }) => {
         setSelectedTopic(valueTopic);
         setSelectedSubtopic(0);
       };
+      const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : true);
+      };
+    
+      React.useEffect(() => {
+        setExpanded(selectedTopic);
+      });
 
   return (
-    <ListItemsContext.Provider value={{handleNext, handleBack, handleSubTopic, handleTopic, selectedSubtopic, selectedTopic, courses}}>
+    <ListItemsContext.Provider value={{handleNext, handleBack, handleSubTopic, handleTopic,handleChange, selectedSubtopic, selectedTopic, courses, checked, expanded, maxTopics, maxSubTopics}}>
       {children}
     </ListItemsContext.Provider>
   );

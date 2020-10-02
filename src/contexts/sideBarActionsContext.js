@@ -1,14 +1,36 @@
 import React from "react";
 
-export const sideBarActionsContext = React.createContext(); 
+export const SideBarActionsContext = React.createContext(); 
 
-const sideBarActionsContextTag = ({ children }) => {
 
+const SideBarActionsContextTag = ({ children }) => {
+  const [open, setOpen] = React.useState(false);
+  const [openSide, setOpenSide] = React.useState(true);
+  const [openExpand, setOpenExpand] = React.useState(true);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+    setOpenExpand(true)
+  };
+
+  const handleDrawerCloseAll = () => {
+    setOpen(false);
+    setOpenSide(false);
+    setOpenExpand(true)
+  };
+
+  const handleCommentsOpen = () => {
+    setOpenSide(!openSide);
+  }
   return (
-    <sideBarActionsContext.Provider value={{}}>
+    <SideBarActionsContext.Provider value={{open, openSide, openExpand, handleDrawerOpen, handleDrawerClose, handleDrawerCloseAll, handleCommentsOpen}}>
       {children}
-    </sideBarActionsContext.Provider>
+    </SideBarActionsContext.Provider>
   );
 }
 
-export default sideBarActionsContextTag;
+export default SideBarActionsContextTag;

@@ -9,12 +9,16 @@ import './assets/scss/main.scss'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from "./assets/theme"
 import ListItemsContextTag from './contexts/listItemsContext';
+import SideBarActionsContextTag from './contexts/sideBarActionsContext';
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+    <SideBarActionsContextTag>
       <ListItemsContextTag>
         <Home />
       </ListItemsContextTag>
+      </SideBarActionsContextTag>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,8 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import {AppBar, Toolbar, Typography, IconButton} from '@material-ui/core';
+import {AppBar, Toolbar, IconButton} from '@material-ui/core';
 import {Menu, ChevronLeft, AspectRatio, RateReview} from '@material-ui/icons';
+import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 import logo from '../assets/images/logo.png'
 
 const drawerWidth = 320;
@@ -49,14 +50,15 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const NavBar = (props) => {
+const NavBar = () => {
+  const contextSide = React.useContext(SideBarActionsContext);
   const classes = useStyles();
   return (
     <>
     <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: props.open,
+          [classes.appBarShift]: contextSide.open,
         })}
       >
         <div className={classes.contentNavBar}>
@@ -64,16 +66,16 @@ const NavBar = (props) => {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={props.handleDrawerOpen}
+              onClick={contextSide.handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, {
-                [classes.hide]: props.open,
+                [classes.hide]: contextSide.open,
               })}
             >
               <Menu/>
             </IconButton>
-            <IconButton onClick={props.handleDrawerClose} color="inherit">
-              {props.open && <ChevronLeft fontSize="large" />}
+            <IconButton onClick={contextSide.handleDrawerClose} color="inherit">
+              {contextSide.open && <ChevronLeft fontSize="large" />}
             </IconButton>
 
           </Toolbar>
@@ -81,7 +83,7 @@ const NavBar = (props) => {
           <div>
           <IconButton
               color="inherit"
-              onClick={props.handleCommentsOpen}
+              onClick={contextSide.handleCommentsOpen}
               edge="start"
             >
               <RateReview />
@@ -89,7 +91,7 @@ const NavBar = (props) => {
           <IconButton
             color="inherit"
             aria-label="close drawer"
-            onClick={props.handleDrawerCloseAll}
+            onClick={contextSide.handleDrawerCloseAll}
             edge="start"
             className={classes.menuButton}
           >

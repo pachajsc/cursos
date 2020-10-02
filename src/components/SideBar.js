@@ -2,6 +2,7 @@ import React from 'react';
 import { TextField, Grid, Button, Typography, InputAdornment, makeStyles, Tab, Tabs } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import ResizePanel from "react-resize-panel";
+import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 import DesignIcon from '../assets/images/icon.svg'
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +52,8 @@ function TabPanel(props) {
     </div>
   );
 }
-const SideBar = (props) => {
+const SideBar = () => {
+  const contextSide = React.useContext(SideBarActionsContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -60,7 +62,7 @@ const SideBar = (props) => {
   };
   return (
     <>
-      {props.openSide && (
+      {contextSide.openSide && (
         <ResizePanel direction="w" style={{ width: '3600px' }} >
           <div className={"panel sidebar sidebar-right sidebar-right__active"}>
             <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>Design Thinking</Typography>
