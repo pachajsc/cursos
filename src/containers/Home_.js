@@ -152,7 +152,7 @@ export default function Home() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
   const [openSide, setOpenSide] = React.useState(false);
-  const [checked, setChecked] = React.useState([0]);
+  const [checked, setChecked] = React.useState();
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [openExpand, setOpenExpand] = React.useState(true);
 
@@ -244,12 +244,12 @@ export default function Home() {
         </div>
         <Divider />
         <div style={open ? {overflow:'auto'} : {overflow:'hidden'}}>
-        {courses[0].topics.map((topic, value) => (
+        {courses.topics.map((topic, value) => (
           <>
         {open  ? (
-          <ListItem button onClick={courses[0].topics[value].subTopics.length != 0 ? ()=>handleClick(value) : null}>
+          <ListItem button onClick={courses.topics[value].subTopics.length != 0 ? ()=>handleClick(value) : null}>
             <ListItemText primary={topic.title} />
-            {courses[0].topics[value].subTopics.length != 0 ? (
+            {courses.topics[value].subTopics.length != 0 ? (
               <>
               {openExpand ? <ExpandLess /> : <ExpandMore />}
               </>
@@ -264,7 +264,7 @@ export default function Home() {
         <Divider />
         <Collapse in={openExpand} timeout="auto" >
           <List className={classes.list}>
-            {courses[0].topics[value].subTopics.map((subtopic, value) => {
+            {courses.topics[value].subTopics.map((subtopic, value) => {
               return (
                 <>
                   <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)} className={selectedIndex === value ? classes.listSelected : null} selected={selectedIndex === value}>
@@ -306,7 +306,7 @@ export default function Home() {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography variant="p">{courses[0].topics[0].subTopics[selectedIndex].slug}</Typography>
+        <Typography variant="p">{courses.topics.subTopics[selectedIndex].slug}</Typography>
 
         <div className={classes.bottomBar}>
           <div>

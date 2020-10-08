@@ -1,21 +1,24 @@
 import React from 'react';
-import { TextField, Grid, Button, Typography, InputAdornment, makeStyles, Tab, Tabs } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import {NotesComponent,ListFiles, MarkersComponent} from '../components'
+import {Typography, makeStyles, Tab, Tabs, withStyles } from '@material-ui/core';
 import ResizePanel from "react-resize-panel";
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
-import DesignIcon from '../assets/images/icon.svg'
+import DesignIcon from '../assets/images/icon.svg';
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1, 
   },
   padding: {
     padding: theme.spacing(3),
   },
   contentTabs: {
     backgroundColor: theme.palette.background.paper,
-    minHeight:'500px'},
+    minHeight:'400px'
+  },
   tabContainer: {
-    padding: 20
+    padding: '20px 20px 40px 20px',
+    
   },
   iconTitle:{
     maxWidth:40,
@@ -23,9 +26,38 @@ const useStyles = makeStyles((theme) => ({
     marginRight:5,
     position:'relative',
     top:12
-  }
+  },
+  
 }));
 
+const AntTab = withStyles((theme) => ({
+  root: {
+    textTransform: 'none',
+    minWidth: 72,
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(4),
+    '&:hover': {
+      color:  theme.palette.primary.main,
+      opacity: 1,
+    },
+    '&$selected': {
+      color: theme.palette.primary.main,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    '&:focus': {
+      color:  theme.palette.primary.main,
+    },
+  },
+  selected: {},
+}))((props) => <Tab disableRipple {...props} />);
+const AntTabs = withStyles((theme) => ({
+  root: {
+    borderBottom: '1px solid #e8e8e8',
+  },
+  indicator: {
+    backgroundColor:  theme.palette.primary.main,
+  },
+}))(Tabs);
 function a11yProps(index) {
   return {
     id: `nav-tab-${index}`,
@@ -60,54 +92,32 @@ const SideBar = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+
   return (
     <>
       {contextSide.openSide && (
         <ResizePanel direction="w" style={{ width: '3600px' }} >
           <div className={"panel sidebar sidebar-right sidebar-right__active"}>
+            
             <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>Design Thinking</Typography>
+            
             <div className={classes.root}>
               <div className={classes.contentTabs}>
-                <Tabs  value={value} onChange={handleChange} aria-label="ant example">
-                  <Tab  label="Notas" {...a11yProps(0)} />
-                  <Tab  label="Tab 2" {...a11yProps(1)} />
-                  <Tab  label="Tab 3" {...a11yProps(2)} />
-                </Tabs >
+                <AntTabs className={classes.menuTabs}  value={value} onChange={handleChange} aria-label="ant example">
+                  <AntTab  label="Notas" {...a11yProps(0)} />
+                  <AntTab  label="Marcadores" {...a11yProps(1)} />
+                  <AntTab  label="Archivos y Enlaces" {...a11yProps(2)} />
+                </AntTabs >
                 <div className={classes.tabContainer}>
                   <TabPanel value={value} index={0}>
-                    <form noValidate autoComplete="off">
-                      <Grid container className="mt-4">
-                        <Grid sm={12} className="mb-3">
-                          <TextField
-                            autoFocus
-                            id="input-with-icon-textfield"
-                            variant="outlined"
-                            label="Nombre"
-                            size="small"
-                            InputProps={{
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <AccountCircle />
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                        </Grid>
-                        <Grid sm={12} className="mb-4">
-                          <TextField id="outlined-basic" label="Descripción" variant="outlined" multiline fullWidth size="small"
-                            rows={4} />
-                        </Grid>
-                        <Grid sm={12}>
-                          <Button color="primary" variant="contained">Guardar</Button>
-                        </Grid>
-                      </Grid>
-                    </form>
+                    <NotesComponent/>
                   </TabPanel>
                   <TabPanel value={value} index={1}>
-                    Page Two
+                    <MarkersComponent/>
                 </TabPanel>
                   <TabPanel value={value} index={2}>
-                    Page Three
+                    <ListFiles/>
                 </TabPanel>
                 </div>
               </div>

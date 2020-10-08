@@ -35,7 +35,7 @@ export default function TextMobileStepper({steps, LinearProgressProps}) {
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeSubStep, setActiveSubStep] = React.useState(0);
-  const maxSteps = courses[0].topics.length;
+  const maxSteps = courses.topics.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -47,13 +47,13 @@ export default function TextMobileStepper({steps, LinearProgressProps}) {
   const handleActiveStep =() => {
     setActiveStep()
   }
-  const subtopic = courses[0].topics.subTopics;
+  const subtopic = courses.topics.subTopics;
 
   return (
     <div className={classes.root}>
       
-        <Typography>{courses[0].topics[activeStep].title}</Typography><br/>
-        <Typography variant="p">{courses[0].topics[activeStep].slug}</Typography>
+        <Typography>{courses.topics[activeStep].title}</Typography><br/>
+        <Typography variant="p">{courses.topics[activeStep].slug}</Typography>
      
       
       <MobileStepper
@@ -76,14 +76,14 @@ export default function TextMobileStepper({steps, LinearProgressProps}) {
       />
       <ProgressBar  value={Math.ceil((activeStep / (maxSteps - 1)) * 100)}/>
       <ul  >
-      {courses[0].topics.map((text, uuid) => (
+      {courses.topics.map((text, uuid) => (
         
           <li key={uuid} onClick={()=>setActiveStep(uuid)}style={uuid === activeStep ? {color:'red'} : {color:'black'}}>
             <>
             {text.title}
             </>
             <ul>
-             {courses[0].topics[uuid].subTopics.map((texts1, id) => (
+             {courses.topics[uuid].subTopics.map((texts1, id) => (
               <>
               <li onClick={()=>setActiveSubStep(id)} style={id === activeSubStep ? {color:'green'} : {color:'black'}}>{texts1.title}</li>
               </>

@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import DesignIcon from '../assets/images/icon.svg'
 import { ListItemsContext } from '../contexts/listItemsContext';
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
+import Vimeo from '@u-wave/react-vimeo';
 const drawerWidth = 320;
 
 
@@ -65,13 +66,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '56.25%',
     height: 0
   },
-  videoIframe: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%;',
-    height: '100%'
-  }
+  
 
 }));
 
@@ -82,6 +77,10 @@ const Layout = () => {
 
   const classes = useStyles();
   
+  const handleReset = () => {
+    contextSide.handleDrawerClose()
+    context.handleResetTopic()
+  }
 
   return (
     <Grid className={classes.root}>
@@ -102,14 +101,18 @@ const Layout = () => {
           }),
         }}
       >
+        {console.log(context.checked.length, context.maxSubTopics)}
         <Grid className={classes.toolbar}>
+        {/* context.checked.length === context.maxSubTopics  */}
           <ProgressBar value={Math.ceil(((context.selectedTopic + 1) / (context.maxTopics)) * 100)} />
         </Grid>
         <Divider />
         <Grid container
           direction="row"
           justify={contextSide.open ? "flex-start" : "flex-end"}
-          alignItems="center" className={classes.contentTitle}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && 'Design Thinking'}</Typography></Grid>
+          alignItems="center" className={classes.contentTitle}>
+            <div style={{cursor:'pointer'}} onClick={handleReset}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && 'Design Thinking'}</Typography></div>
+        </Grid>
         <Divider />
         <Grid style={contextSide.open ? { overflow: 'auto' } : { overflow: 'hidden' }}>
           <ListItems/>
@@ -117,18 +120,24 @@ const Layout = () => {
       </Drawer>
       
       <Grid className={classes.main}>
-
         <div className={classes.toolbar} />
         <div className={classes.videoWrapper}>
-          <iframe className={classes.videoIframe} width="560" height="315" src={context.courses[0].topics[context.selectedTopic].subTopics[context.selectedSubtopic].video !== "" ? context.courses[0].topics[context.selectedTopic].subTopics[context.selectedSubtopic].video + "?autoplay=1" : null} frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-          {context.courses[0].topics[context.selectedTopic].subTopics[context.selectedSubtopic].video ? "" : (<Typography variant="p">{context.courses[0].topics[context.selectedTopic].subTopics[context.selectedSubtopic].slug}</Typography>)}
+        {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video === "" ? "pp" : (
+        <Vimeo
+          onEnd={context.handleEndVideo()}
+          allowfullscreen
+          video={context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
+          autoplay
+        />
+        )}
+          {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video ? "" : (<Typography variant="p">{context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].slug}</Typography>)}
         </div>
         
         <Grid container
           direction="row"
           justify="space-between"
           alignItems="start" className='mt-4'>
-          <Typography variant={'h6'}><b>{context.courses[0].topics[context.selectedTopic].title}</b> - {context.courses[0].topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
+          <Typography variant={'h6'}><b>{context.courses.topics[context.selectedTopic].title}</b> - {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
           <PaginatorButtons/>
         </Grid>
 

@@ -1,4 +1,4 @@
-export const courses=[
+export const course=
     {
     "uuid": "4938b867-ead6-45a5-a739-af2922b7fcd5",
     "createdAt": "2020-09-03T17:25:55+00:00",
@@ -26,7 +26,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 1",
-                    "video":"https://www.youtube.com/embed/R7TDAu0cbdA",
+                    "video":"https://player.vimeo.com/video/207141236",
                     "description": "Empty Description",
                     "priority": 1,
                     "slug": "sub-tema-1",
@@ -39,7 +39,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 2",
-                    "video":"https://player.vimeo.com/video/207141236",
+                    "video":"https://player.vimeo.com/video/27058468",
                     "description": "Empty Description",
                     "priority": 1,
                     "slug": "sub-tema-2",
@@ -52,7 +52,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 3",
-                    "video":"https://www.youtube.com/embed/oc47O9iTnLc",
+                    "video":"https://player.vimeo.com/video/207141236",
                     "description": "<p>Empty Descriptionassa</p>",
                     "priority": 1,
                     "slug": "sub-tema-3",
@@ -65,6 +65,7 @@ export const courses=[
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 4",
+                    "video":"",
                     "description": "Empty Description",
                     "priority": 1,
                     "slug": "sub-tema-4",
@@ -76,6 +77,7 @@ export const courses=[
                     "updatedAt": "2020-09-03T18:57:34+00:00",
                     "status": "draft",
                     "version": 8,
+                    "video":"",
                     "title": "Sub Tema 5",
                     "description": "Empty Description",
                     "priority": 1,
@@ -303,4 +305,3 @@ export const courses=[
     ]
     
     }
-]
