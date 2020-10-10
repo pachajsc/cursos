@@ -84,65 +84,123 @@ const Layout = () => {
 
   return (
     <Grid className={classes.root}>
-      <CssBaseline />
-      
-      <NavBar/>
-      
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: contextSide.open,
-          [classes.drawerClose]: !contextSide.open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: contextSide.open,
-            [classes.drawerClose]: !contextSide.open,
-          }),
-        }}
-      >
-        {console.log(context.checked.length, context.maxSubTopics)}
-        <Grid className={classes.toolbar}>
-        {/* context.checked.length === context.maxSubTopics  */}
-          <ProgressBar value={Math.ceil(((context.selectedTopic + 1) / (context.maxTopics)) * 100)} />
-        </Grid>
-        <Divider />
-        <Grid container
-          direction="row"
-          justify={contextSide.open ? "flex-start" : "flex-end"}
-          alignItems="center" className={classes.contentTitle}>
-            <div style={{cursor:'pointer'}} onClick={handleReset}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && 'Design Thinking'}</Typography></div>
-        </Grid>
-        <Divider />
-        <Grid style={contextSide.open ? { overflow: 'auto' } : { overflow: 'hidden' }}>
-          <ListItems/>
-        </Grid>
-      </Drawer>
-      
-      <Grid className={classes.main}>
-        <div className={classes.toolbar} />
-        <div className={classes.videoWrapper}>
-        {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video === "" ? "pp" : (
-        <Vimeo
-          onEnd={context.handleEndVideo()}
-          allowfullscreen
-          video={context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
-          autoplay
-        />
-        )}
-          {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video ? "" : (<Typography variant="p">{context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].slug}</Typography>)}
-        </div>
-        
-        <Grid container
-          direction="row"
-          justify="space-between"
-          alignItems="start" className='mt-4'>
-          <Typography variant={'h6'}><b>{context.courses.topics[context.selectedTopic].title}</b> - {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
-          <PaginatorButtons/>
-        </Grid>
+      {Object.values(context.courses).length > 0 && (
+        <>
+          <CssBaseline />
 
-      </Grid>
-      <SideBar/>
+          <NavBar />
+
+          <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
+              [classes.drawerOpen]: contextSide.open,
+              [classes.drawerClose]: !contextSide.open,
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: contextSide.open,
+                [classes.drawerClose]: !contextSide.open,
+              }),
+            }}
+          >
+            {console.log(context.checked.length, context.maxSubTopics)}
+            <Grid className={classes.toolbar}>
+              {/* context.checked.length === context.maxSubTopics  */}
+              <ProgressBar
+                value={Math.ceil(
+                  ((context.selectedTopic + 1) / context.maxTopics) * 100
+                )}
+              />
+            </Grid>
+            <Divider />
+            <Grid
+              container
+              direction="row"
+              justify={contextSide.open ? "flex-start" : "flex-end"}
+              alignItems="center"
+              className={classes.contentTitle}
+            >
+              <div style={{ cursor: "pointer" }} onClick={handleReset}>
+                <Typography
+                  components={"h2"}
+                  variant="h6"
+                  className="mb-3"
+                  color="primary"
+                >
+                  <img
+                    src={DesignIcon}
+                    alt="icon"
+                    className={classes.iconTitle}
+                  />
+                  {contextSide.open && "Design Thinking"}
+                </Typography>
+              </div>
+            </Grid>
+            <Divider />
+            <Grid
+              style={
+                contextSide.open ? { overflow: "auto" } : { overflow: "hidden" }
+              }
+            >
+              <ListItems />
+            </Grid>
+          </Drawer>
+
+          <Grid className={classes.main}>
+            <div className={classes.toolbar} />
+            <div className={classes.videoWrapper}>
+              {context.courses.topics[context.selectedTopic].subTopics[
+                context.selectedSubtopic
+              ].video === "" ? (
+                "pp"
+              ) : (
+                <Vimeo
+                  onEnd={context.handleEndVideo()}
+                  allowfullscreen
+                  video={
+                    context.courses.topics[context.selectedTopic].subTopics[
+                      context.selectedSubtopic
+                    ].video
+                  }
+                  autoplay
+                />
+              )}
+              {context.courses.topics[context.selectedTopic].subTopics[
+                context.selectedSubtopic
+              ].video ? (
+                ""
+              ) : (
+                <Typography variant="p">
+                  {
+                    context.courses.topics[context.selectedTopic].subTopics[
+                      context.selectedSubtopic
+                    ].slug
+                  }
+                </Typography>
+              )}
+            </div>
+
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="start"
+              className="mt-4"
+            >
+              <Typography variant={"h6"}>
+                <b>{context.courses.topics[context.selectedTopic].title}</b> -{" "}
+                {
+                  context.courses.topics[context.selectedTopic].subTopics[
+                    context.selectedSubtopic
+                  ].title
+                }
+              </Typography>
+              <PaginatorButtons />
+            </Grid>
+          </Grid>
+          <SideBar />
+        </>
+      )}
     </Grid>
   );
 }
