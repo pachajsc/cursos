@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 const ListItems = () => {
 
   const context = React.useContext(ListItemsContext);
+  const contextSide = React.useContext(SideBarActionsContext);
   const classes = useStyles();
 
   return (
@@ -42,7 +43,7 @@ const ListItems = () => {
                 expandIcon={<ExpandMore />}
                 onClick={context.courses.topics[index].subTopics.length !== 0 ? context.handleTopic(index) : null}
               >
-                <Typography variant={'h6'} components={'h2'}>{topic.title}</Typography>
+                {contextSide.open && <Typography variant={'h6'} components={'h2'}>{topic.title}</Typography>}
               </AccordionSummary>
               <AccordionDetails className={classes.accordionContent}>
                 <List className={classes.list}>
@@ -50,7 +51,7 @@ const ListItems = () => {
                     
                     return (
                       
-                      <ListSubItems topicIndex={index} value={subindex} title={subtopic.title} key={subindex} view={subtopic.viewed}/>
+                      <ListSubItems topicIndex={index} value={subindex} title={subtopic.title} key={subindex}/>
                       
                     );
                   })}

@@ -3,6 +3,7 @@ import {NotesComponent,ListFiles, MarkersComponent} from '../components'
 import {Typography, makeStyles, Tab, Tabs, withStyles } from '@material-ui/core';
 import ResizePanel from "react-resize-panel";
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
+import { ListItemsContext } from '../contexts/listItemsContext';
 import DesignIcon from '../assets/images/icon.svg';
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +87,7 @@ function TabPanel(props) {
 }
 const SideBar = () => {
   const contextSide = React.useContext(SideBarActionsContext);
+  const context = React.useContext(ListItemsContext);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -100,7 +102,7 @@ const SideBar = () => {
         <ResizePanel direction="w" style={{ width: '3600px' }} >
           <div className={"panel sidebar sidebar-right sidebar-right__active"}>
             
-            <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>Design Thinking</Typography>
+            <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>{context.courses.title}</Typography>
             
             <div className={classes.root}>
               <div className={classes.contentTabs}>

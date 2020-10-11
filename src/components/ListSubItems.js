@@ -26,12 +26,11 @@ const useStyles = makeStyles({
 
 const ListSubItems = (props) => {
   const [check, setCheck] = React.useState(props.view);
-
   const context = React.useContext(ListItemsContext);
   const contextSide = React.useContext(SideBarActionsContext);
   const classes = useStyles();
 
-  console.log("items",context.selectedTopic, context.selectedSubtopic)
+  
 
   return (
    
@@ -45,7 +44,7 @@ const ListSubItems = (props) => {
             <FormControlLabel
                 control={<Checkbox className={classes.checkItem} color="primary" icon={<CheckCircleOutline fontSize="small" />} checkedIcon={<CheckCircle fontSize="small" />} name="checkedH" />}
                 edge="end"
-                checked={check}
+                checked={context.selectedSubtopic === props.value && context.selectedTopic === props.topicIndex  ? true : false}
                 tabIndex={-1}
                 disableRipple
 
