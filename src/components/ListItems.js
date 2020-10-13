@@ -51,7 +51,7 @@ const ListItems = () => {
                     
                     return (
                       
-                      <ListSubItems topicIndex={index} value={subindex} title={subtopic.title} key={subindex}/>
+                      <ListSubItems topicIndex={index} value={subindex} title={subtopic.title} key={subindex} view={subtopic.viewed}/>
                       
                     );
                   })}

@@ -296,6 +296,7 @@ export const course=
                 "status": "draft",
                 "version": 8,
                 "title": "Sub Tema 2",
+                "video":"https://player.vimeo.com/video/207141236",
                 "description": "Empty Description",
                 "priority": 1,
                 "slug": "sub-tema-2",

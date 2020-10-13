@@ -12,3 +12,37 @@
         height: 100%;
     }
 }
+.pagination-buttons{
+    position: fixed;
+    bottom: 15px;
+    /* right: 0; */
+    transform: translate(50%, 0);
+    right: 50%;
+    background: #fff;
+    z-index: 999999;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 18px 0px #00000029;
+    animation-name: animatePagination;
+    animation-duration:0.6s;
+}
+
+
+@keyframes animatePagination {
+0% {
+    opacity: 0;
+    bottom: -10px;
+}
+100% {
+    opacity: 1;
+    bottom: 15px;
+}
+}
+
+
+
+.inner-scroll{
+    padding:20px;
+  height:100vh;
+  overflow: auto;
+}

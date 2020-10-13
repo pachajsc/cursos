@@ -6,7 +6,7 @@ const PaginatorButtons = () => {
   const context = React.useContext(ListItemsContext);
   return (
     <>
-    <div>
+    <div className="pagination-buttons">
     <Button
       onClick={context.handleBack}
       disabled={context.selectedTopic === 0 && context.selectedSubtopic === 0 ? true : false}

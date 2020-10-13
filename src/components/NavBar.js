@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
   },
   imageLogo:{
     maxWidth:120
+  },
+  contentRight:{
+    paddingLeft:'25px'
   }
 
 }));
@@ -80,7 +83,7 @@ const NavBar = () => {
 
           </Toolbar>
           <img src={logo} alt="logo" className={classes.imageLogo}/>
-          <div>
+          <div className={classes.contentRight}>
           <IconButton
               color="inherit"
               onClick={contextSide.handleCommentsOpen}

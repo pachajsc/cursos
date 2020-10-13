@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { ListItems, SideBar, ProgressBar, NavBar, PaginatorButtons } from '../components'
+import { ListItems, SideBar, ProgressBar, NavBar, PaginatorButtons, ContentLayout } from '../components'
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Typography, Divider, Grid} from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,8 +8,8 @@ import DesignIcon from '../assets/images/icon.svg'
 import { ListItemsContext } from '../contexts/listItemsContext';
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 import Vimeo from '@u-wave/react-vimeo';
-const drawerWidth = 320;
 
+const drawerWidth = 320;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   main: {
     height: '100vh',
     width: '5000px',
-    overflow: 'auto',
+    overflow: 'hidden',
     flexGrow: 1,
-    padding: '20px 20px 70px 20px',
+    
   },
   iconTitle: {
     maxWidth: 40,
@@ -66,17 +66,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '56.25%',
     height: 0
   },
-  
-
 }));
 
 const Layout = () => {
-
   const context = React.useContext(ListItemsContext);
   const contextSide = React.useContext(SideBarActionsContext);
-
   const classes = useStyles();
-  
   const handleReset = () => {
     contextSide.handleDrawerClose()
     context.handleResetTopic()
@@ -84,10 +79,9 @@ const Layout = () => {
 
   return (
     <Grid className={classes.root}>
+      {Object.values(context.courses).length > 0 && (<>
       <CssBaseline />
-      
       <NavBar/>
-      
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -100,8 +94,7 @@ const Layout = () => {
             [classes.drawerClose]: !contextSide.open,
           }),
         }}
-      >
-       
+      > 
         <Grid className={classes.toolbar}>
         {/* context.checked.length === context.maxSubTopics  */}
           <ProgressBar value={Math.ceil(((context.selectedTopic + 1) / (context.maxTopics)) * 100)} />
@@ -118,32 +111,32 @@ const Layout = () => {
           <ListItems/>
         </Grid>
       </Drawer>
-      
       <Grid className={classes.main}>
-        <div className={classes.toolbar} />
-        {/*<div className={classes.videoWrapper}>
-         {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video === "" ? "pp" : (
-        <Vimeo
-          onEnd={context.handleEndVideo()}
-          allowfullscreen
-          video={context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
-          autoplay
-        />
-        )}
-          {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video ? "" : (<Typography variant="p">{context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].slug}</Typography>)} 
-        
-        </div>*/}
-        <Typography variant="p">{context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].description}</Typography>
-        <Grid container
-          direction="row"
-          justify="space-between"
-          alignItems="start" className='mt-4'>
-          <Typography variant={'h6'}><b>{context.courses.topics[context.selectedTopic].title}</b> - {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
-          <PaginatorButtons/>
-        </Grid>
-
+        <ContentLayout>
+          <div className={classes.toolbar} />
+          <div className={classes.videoWrapper}>
+            {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video === "" ? null : (
+            <Vimeo
+              onEnd={context.handleEndVideo()}
+              allowfullscreen
+              video={context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
+              autoplay
+            />
+            )}
+              {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video ? "" : (<Typography variant="p">{context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].slug}</Typography>)} 
+            
+          </div>
+          <Grid container
+            direction="row"
+            justify="space-between"
+            alignItems="start" className='mt-4'>
+              <Typography variant={'h6'}><b>{context.courses.topics[context.selectedTopic].title}</b> - {context.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
+              <PaginatorButtons/>
+          </Grid>
+        </ContentLayout>     
       </Grid>
       <SideBar/>
+      </>)}
     </Grid>
   );
 }
