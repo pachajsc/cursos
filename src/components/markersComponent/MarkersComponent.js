@@ -1,10 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {List, ListItem, ListItemIcon, ListItemSecondaryAction,ListItemText} from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import TurnedInIcon from '@material-ui/icons/TurnedIn';
@@ -13,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        maxWidth: 752,
+        width:'100%',
     },
     demo: {
         backgroundColor: theme.palette.background.paper,
@@ -45,7 +41,7 @@ const MarkersComponent = () => {
                                     <ListItem>
                                         <ListItemIcon>
 
-                                            <TurnedInIcon />
+                                            <TurnedInIcon color="primary"/>
 
                                         </ListItemIcon>
                                         <ListItemText

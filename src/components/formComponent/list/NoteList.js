@@ -1,6 +1,5 @@
 import React from 'react'
-import { Typography, IconButton, AccordionDetails, AccordionSummary, Accordion, Grid } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Typography, IconButton, Grid,Divider } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -9,21 +8,13 @@ const NoteList = props => (
 
     {props.users.length > 0 ? (
       props.users.map(user => (
-        <Accordion key={user.id}>
-          <AccordionSummary
-            expandIcon={
-              <>
-                <ExpandMoreIcon />
-              </>
-            }
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
+        <div key={user.id}>
+          
             <Grid container
               direction="row"
               justify="space-between"
               alignItems="center">
-              <Typography >{user.name}</Typography>
+              <Typography style={{overflowWrap: 'break-word', width:'74%'}}>{user.description}</Typography>
               <Grid item>
                 <IconButton
                   onClick={() => {
@@ -41,17 +32,10 @@ const NoteList = props => (
                 </IconButton>
               </Grid>
             </Grid>
+            <Divider/>
 
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              {user.description}
-            </Typography>
-          </AccordionDetails>
-
-
-
-        </Accordion>
+          </div>
+          
       ))
     ) : (
         <p>Lista de notas vacia</p>

@@ -3,13 +3,14 @@ import AddUserForm from './forms/AddNoteForm'
 import EditUserForm from './forms/EditNoteForm'
 import UserTable from './list/NoteList'
 import { Typography, Button, Grid } from '@material-ui/core';
-
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 const NotesComponent = () => {
 	// Data
 	const usersData = [
-		{ id: 1, name: 'Nota 1', description: 'descripcion 1' },
-		{ id: 2, name: 'Nota 2', description: 'descripcion 2' },
-		{ id: 3, name: 'Nota 3', description: 'descripcion 3' },
+		{ id: 1,  description: 'descripcion 1' },
+		{ id: 2,  description: 'descripcion 2' },
+		{ id: 3,  description: 'descripcion 3' },
 	]
 
 	const initialFormState = { id: null, name: '', description: '' }
@@ -77,7 +78,13 @@ const NotesComponent = () => {
 					className="mb-3"
 					>
 					<Typography variant="p" component="h2" className="mb-2">Mis Notas</Typography>
-					{!addNotes && <Button variant="contained" color="primary" size="small" onClick={()=> setAddNotes(true)}>Agregar nota +</Button>}
+					
+					{!addNotes && 
+					<Fab color="primary" aria-label="add" size="small" onClick={()=> setAddNotes(true)}>
+						<AddIcon />
+					</Fab>
+					
+					}
 				</Grid>
 				<div className="flex-large">
 					<UserTable users={users} editRow={editRow} deleteUser={deleteUser} />

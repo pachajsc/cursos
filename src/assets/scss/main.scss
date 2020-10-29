@@ -19,7 +19,7 @@
     transform: translate(50%, 0);
     right: 50%;
     background: #fff;
-    z-index: 999999;
+    z-index: 5;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 18px 0px #00000029;
@@ -29,20 +29,18 @@
 
 
 @keyframes animatePagination {
-0% {
-    opacity: 0;
-    bottom: -10px;
+    0% {
+        opacity: 0;
+        bottom: -10px;
+    }
+    100% {
+        opacity: 1;
+        bottom: 15px;
+    }
 }
-100% {
-    opacity: 1;
-    bottom: 15px;
-}
-}
-
 
 
 .inner-scroll{
-    padding:20px;
-  height:100vh;
-  overflow: auto;
+    height:100vh;
+    overflow-y: scroll;
 }

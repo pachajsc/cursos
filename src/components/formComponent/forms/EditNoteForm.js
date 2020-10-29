@@ -26,9 +26,7 @@ const EditNoteForm = props => {
       }}
     >
       <Grid container spacing={2} className="mt-1">
-				<Grid item xs={12}>
-					<TextField variant="outlined" label="Nombre" type="text" name="name" value={user.name} onChange={handleInputChange} size="small" />
-				</Grid>
+				
 				<Grid item xs={12}>
 					<TextField variant="outlined" label="Descripcion" type="text" name="description" value={user.description} onChange={handleInputChange} fullWidth multiline rows={4} size="small" />
 				</Grid>

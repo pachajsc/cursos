@@ -52,8 +52,8 @@ export const course=
                     "status": "draft",
                     "version": 8,
                     "title": "Sub Tema 3",
-                    "video":"https://player.vimeo.com/video/207141236",
-                    "description": "<p>Empty Descriptionassa</p>",
+                    
+                    "description": "<div class='scroll-text'><h2>el pepe</h2><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus dolorem eum temporibus. Aliquid, adipisci sequi possimus cupiditate, minus nihil vero quidem repellat id, numquam eius ducimus assumenda incidunt quam dicta. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum laborum soluta beatae natus ipsum delectus distinctio voluptates nostrum nemo culpa doloribus vero ad, sunt qui tenetur ab, nesciunt, voluptas itaque.</p></div>",
                     "priority": 1,
                     "slug": "sub-tema-3",
                     "viewed": false
@@ -64,9 +64,15 @@ export const course=
                     "updatedAt": "2020-09-03T18:57:34+00:00",
                     "status": "draft",
                     "version": 8,
-                    "title": "Sub Tema 4",
-                    "video":"",
-                    "description": "Empty Description",
+                    "title": "Sub Tema 4",  
+                    "description":"el pepe",
+                    "options": [
+                        {'title': "op1"},
+                        {'title': "op2"},
+                        {'video': "https://player.vimeo.com/video/207141236"},
+                        {'title': "op4"},
+                        {'video': "https://player.vimeo.com/video/207141236"},
+                    ],
                     "priority": 1,
                     "slug": "sub-tema-4",
                     "viewed": false
@@ -77,7 +83,6 @@ export const course=
                     "updatedAt": "2020-09-03T18:57:34+00:00",
                     "status": "draft",
                     "version": 8,
-                    "video":"",
                     "title": "Sub Tema 5",
                     "description": "Empty Description",
                     "priority": 1,
@@ -92,6 +97,10 @@ export const course=
                     "version": 8,
                     "title": "Sub Tema 6",
                     "description": "Empty Description",
+                    "options": [
+                        {'title': "op1"},
+                        {'title': "op2"}
+                    ],
                     "priority": 1,
                     "slug": "sub-tema-6",
                     "viewed": false

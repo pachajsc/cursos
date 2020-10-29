@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
 const AddNoteForm = props => {
-	const initialFormState = { id: null, name: '', description: '' }
+	const initialFormState = { id: null, description: '' }
 	const [user, setUser] = useState(initialFormState)
 
 	const handleInputChange = event => {
@@ -14,16 +14,14 @@ const AddNoteForm = props => {
 		<form
 			onSubmit={event => {
 				event.preventDefault()
-				if (!user.name || !user.description) return
+				if (!user.description) return
 
 				props.addUser(user)
 				setUser(initialFormState)
 			}}
 		>
 			<Grid container spacing={2} >
-				<Grid item xs={12}>
-					<TextField variant="outlined" label="Nombre" type="text" name="name" value={user.name} onChange={handleInputChange} size="small" />
-				</Grid>
+				
 				<Grid item xs={12}>
 					<TextField variant="outlined" label="Descripcion" type="text" name="description" value={user.description} onChange={handleInputChange} fullWidth multiline rows={4} size="small" />
 				</Grid>

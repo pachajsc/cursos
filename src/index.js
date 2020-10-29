@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 //import Test from './containers/Test';
 //import Library from './containers/Library';
-import Home from './containers/Home';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import './assets/scss/main.scss'
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -11,12 +11,13 @@ import { theme } from "./assets/theme"
 import ListItemsContextTag from './contexts/listItemsContext';
 import SideBarActionsContextTag from './contexts/sideBarActionsContext';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
     <SideBarActionsContextTag>
       <ListItemsContextTag>
-        <Home />
+        <App />
       </ListItemsContextTag>
       </SideBarActionsContextTag>
     </ThemeProvider>

@@ -1,11 +1,12 @@
 import React from 'react';
 import {NotesComponent,ListFiles, MarkersComponent} from '../components'
-import {Typography, makeStyles, Tab, Tabs, withStyles } from '@material-ui/core';
+import {AntTab, AntTabs, a11yProps, TabPanel} from './Tabs'
+import {Typography, makeStyles} from '@material-ui/core';
 import ResizePanel from "react-resize-panel";
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 import { ListItemsContext } from '../contexts/listItemsContext';
 import DesignIcon from '../assets/images/icon.svg';
-import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1, 
@@ -31,60 +32,6 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const AntTab = withStyles((theme) => ({
-  root: {
-    textTransform: 'none',
-    minWidth: 72,
-    fontWeight: theme.typography.fontWeightRegular,
-    marginRight: theme.spacing(4),
-    '&:hover': {
-      color:  theme.palette.primary.main,
-      opacity: 1,
-    },
-    '&$selected': {
-      color: theme.palette.primary.main,
-      fontWeight: theme.typography.fontWeightMedium,
-    },
-    '&:focus': {
-      color:  theme.palette.primary.main,
-    },
-  },
-  selected: {},
-}))((props) => <Tab disableRipple {...props} />);
-const AntTabs = withStyles((theme) => ({
-  root: {
-    borderBottom: '1px solid #e8e8e8',
-  },
-  indicator: {
-    backgroundColor:  theme.palette.primary.main,
-  },
-}))(Tabs);
-function a11yProps(index) {
-  return {
-    id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
-  };
-}
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`nav-tabpanel-${index}`}
-      aria-labelledby={`nav-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-
-        <Typography>{children}</Typography>
-
-      )}
-    </div>
-  );
-}
 const SideBar = () => {
   const contextSide = React.useContext(SideBarActionsContext);
   const context = React.useContext(ListItemsContext);
@@ -101,9 +48,7 @@ const SideBar = () => {
       {contextSide.openSide && (
         <ResizePanel direction="w" style={{ width: '3600px' }} >
           <div className={"panel sidebar sidebar-right sidebar-right__active"}>
-            
             <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle}/>{context.courses.title}</Typography>
-            
             <div className={classes.root}>
               <div className={classes.contentTabs}>
                 <AntTabs className={classes.menuTabs}  value={value} onChange={handleChange} aria-label="ant example">
