@@ -1,17 +1,18 @@
 import React from 'react';
 import clsx from 'clsx';
 import { ListItems, SideBar, ProgressBar, NavBar, PaginatorButtons, ContentLayout } from '../components'
-import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Typography, Divider, Grid, Hidden } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import DesignIcon from '../assets/images/icon.svg'
 import { ListItemsContext } from '../contexts/listItemsContext';
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
+import { DataActionsContext } from '../contexts/dataContext';
 import {useStyles} from './style.js'
 
 const Layout = (props) => {
   const context = React.useContext(ListItemsContext);
   const contextSide = React.useContext(SideBarActionsContext);
+  const contextData = React.useContext(DataActionsContext);
   const classes = useStyles();
   const handleReset = () => {
     contextSide.handleDrawerClose()
@@ -20,7 +21,7 @@ const Layout = (props) => {
 
   return (
     <Grid className={classes.root}>
-      {context.courses && (<>
+      {contextData.courses && (<>
         <CssBaseline />
         <NavBar />
         <Drawer
@@ -45,7 +46,7 @@ const Layout = (props) => {
             direction="row"
             justify={contextSide.open ? "flex-start" : "flex-end"}
             alignItems="center" className={classes.contentTitle}>
-            <div style={{ cursor: 'pointer' }} onClick={handleReset}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && context.courses.title}</Typography></div>
+            <div style={{ cursor: 'pointer' }} onClick={handleReset}><Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextSide.open && contextData.courses.title}</Typography></div>
           </Grid>
           <Divider />
           <Grid style={contextSide.open ? { overflow: 'auto' } : { overflow: 'hidden' }}>

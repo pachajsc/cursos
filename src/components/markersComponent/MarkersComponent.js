@@ -1,68 +1,94 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {List, ListItem, ListItemIcon, ListItemSecondaryAction,ListItemText} from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import TurnedInIcon from '@material-ui/icons/TurnedIn';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Divider from '@material-ui/core/Divider';
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        width:'100%',
-    },
-    demo: {
-        backgroundColor: theme.palette.background.paper,
-    }
-}));
-
-function generate(element) {
-    return [0, 1, 2].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
+import React, { useState, Fragment } from 'react'
+import AddUserForm from './forms/AddMarkForm'
+import EditUserForm from './forms/EditMarkForm'
+import UserTable from './list/MarkList'
+import { Typography, Grid } from '@material-ui/core';
+import { SideBarActionsContext } from '../../contexts/sideBarActionsContext';
 
 const MarkersComponent = () => {
-    const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
+	 
+	 const videoMarkData = [
+	 	{ id: 1,  description: 'descripcion 1', time:20 },
+	 	{ id: 2,  description: 'descripcion 2', time:30 },
+	 	{ id: 3,  description: 'descripcion 3', time:40 },
+	 ]
 
-    return (
-        <div className={classes.root}>
+	const initialFormState = { id: null, time: '', description: '' }
 
-            <Grid container spacing={1}>
-                <Grid item xs={12} md={12}>
-                    <div className={classes.demo}>
-                        <List >
-                            {generate(
-                                <>
-                                    <ListItem>
-                                        <ListItemIcon>
+	// Setting state
+	const [users, setUsers] = useState(videoMarkData)
+	const [currentUser, setCurrentUser] = useState(initialFormState)
+	const [editing, setEditing] = useState(false)
+	
+    const contextSide = React.useContext(SideBarActionsContext);
 
-                                            <TurnedInIcon color="primary"/>
+	// CRUD operations
+	const addUser = user => {
+		user.id = users.length + 1
+        setUsers([...users, user])
+        contextSide.setAddMarker(false)
+        contextSide.setmarkTime('')
+	}
 
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            primary="Single-line item"
-                                            secondary={secondary ? 'Secondary text' : null}
-                                        />
-                                        <ListItemSecondaryAction>
-                                            <IconButton edge="end" aria-label="delete">
-                                                <DeleteIcon />
-                                            </IconButton>
-                                        </ListItemSecondaryAction>
-                                    </ListItem>
-                                    <Divider />
-                                </>
-                            )}
-                        </List>
-                    </div>
-                </Grid>
-            </Grid>
-        </div>
-    );
+	const deleteUser = id => {
+		setEditing(false)
+
+		setUsers(users.filter(user => user.id !== id))
+	}
+
+	const updateUser = (id, updatedUser) => {
+		setEditing(false)
+        contextSide.setAddMarker(false)
+		setUsers(users.map(user => (user.id === id ? updatedUser : user)))
+	}
+
+	const editRow = user => {
+		setEditing(true)
+		contextSide.setAddMarker(true)
+
+		setCurrentUser({ id: user.id, time: user.time, description: user.description })
+    }
+    
+    const handleEdit = () =>{
+        setEditing()
+        contextSide.setAddMarker(false)
+    }
+    const handleCancel = () =>{
+        contextSide.setmarkTime('')
+       contextSide.setAddMarker(false)
+    }
+
+	return (
+		<div className="container">
+			<div>
+
+				{contextSide.addMarker && (
+					<div className="mb-4">
+						{editing ? (
+							<Fragment>
+
+								<EditUserForm
+									editing={editing}
+									setEditing={handleEdit}
+									currentUser={currentUser}
+									updateUser={updateUser}
+								/>
+							</Fragment>
+						) : (
+								<Fragment>
+									<AddUserForm addUser={addUser} onClose={handleCancel} />
+								</Fragment>
+							)}
+					</div>
+				)}
+
+
+				<div className="flex-large">
+					<UserTable users={users} editRow={editRow} deleteUser={deleteUser} listPosition={contextSide.handleListPosition}/>
+				</div>
+			</div>
+		</div>
+	)
 }
 
 export default MarkersComponent

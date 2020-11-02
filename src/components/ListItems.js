@@ -4,6 +4,7 @@ import {ListSubItems} from '../components'
 import {Accordion, AccordionSummary, AccordionDetails, Checkbox, FormControlLabel, Divider, ListItem, List, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
 import {Videocam, ExpandMore, CheckCircleOutline, CheckCircle} from '@material-ui/icons';
 import { ListItemsContext } from '../contexts/listItemsContext';
+import { DataActionsContext } from '../contexts/dataContext';
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 
 const useStyles = makeStyles({
@@ -31,23 +32,24 @@ const ListItems = () => {
 
   const context = React.useContext(ListItemsContext);
   const contextSide = React.useContext(SideBarActionsContext);
+  const contextData = React.useContext(DataActionsContext);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {context.courses.topics.map((topic, index) => (
+      {contextData.courses.topics.map((topic, index) => (
         <>   
             <Accordion expanded={context.expanded === index} onChange={context.handleChange(index)}>
               <AccordionSummary
                 className={classes.accordionSummary}
                 expandIcon={<ExpandMore />}
-                onClick={context.courses.topics[index].subTopics.length !== 0 ? context.handleTopic(index) : null}
+                onClick={contextData.courses.topics[index].subTopics.length !== 0 ? context.handleTopic(index) : null}
               >
                 {contextSide.open && <Typography variant={'h6'} components={'h2'}>{topic.title}</Typography>}
               </AccordionSummary>
               <AccordionDetails className={classes.accordionContent}>
                 <List className={classes.list}>
-                  {context.courses.topics[index].subTopics.map((subtopic, subindex) => {
+                  {contextData.courses.topics[index].subTopics.map((subtopic, subindex) => {
                     
                     return (
                       

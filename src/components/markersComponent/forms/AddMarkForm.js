@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
-const AddNoteForm = props => {
+const AddMarkForm = props => {
 	const initialFormState = { id: null, description: '' }
 	const [user, setUser] = useState(initialFormState)
 
@@ -23,7 +23,7 @@ const AddNoteForm = props => {
 			<Grid container spacing={2} >
 				
 				<Grid item xs={12}>
-					<TextField autoFocus variant="outlined" label="Descripción de la nota" type="text" name="description" value={user.description} onChange={handleInputChange} fullWidth multiline rows={4} size="small" />
+					<TextField autoFocus variant="outlined" label="Descripción del marcador" type="text" name="description" value={user.description} onChange={handleInputChange} fullWidth multiline rows={4} size="small" />
 				</Grid>
 				<Grid item xs={12}>
 				<Button variant="contained"  onClick={props.onClose} className="button muted-button mr-1" size="small">Cancelar</Button>
@@ -35,4 +35,4 @@ const AddNoteForm = props => {
 	)
 }
 
-export default AddNoteForm
+export default AddMarkForm

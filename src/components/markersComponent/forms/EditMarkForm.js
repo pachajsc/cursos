@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
-const EditNoteForm = props => {
+const EditMarkForm = props => {
   const [ user, setUser ] = useState(props.currentUser)
 
   useEffect(
@@ -21,7 +21,6 @@ const EditNoteForm = props => {
     <form
       onSubmit={event => {
         event.preventDefault()
-
         props.updateUser(user.id, user)
       }}
     >
@@ -31,7 +30,7 @@ const EditNoteForm = props => {
 					<TextField autoFocus variant="outlined" label="Descripcion" type="text" name="description" value={user.description} onChange={handleInputChange} fullWidth multiline rows={4} size="small" />
 				</Grid>
 				<Grid item xs={12}>
-				<Button variant="contained"  onClick={props.onClose} className="button muted-button mr-1" size="small">Cancelar</Button>
+				<Button variant="contained"  onClick={() => props.setEditing(false)} className="button muted-button mr-1" size="small">Cancelar</Button>
         <Button variant="contained" color="primary" type="submit" size="small">Guardar</Button>
 				</Grid>
 			</Grid>
@@ -40,4 +39,4 @@ const EditNoteForm = props => {
   )
 }
 
-export default EditNoteForm
+export default EditMarkForm

@@ -2,8 +2,8 @@ import React from 'react';
 import { NotesComponent, ListFiles, MarkersComponent } from '../../../components'
 import { AntTab, AntTabs, a11yProps, TabPanel } from '../../../components/Tabs'
 import { Typography, makeStyles } from '@material-ui/core';
+import { DataActionsContext } from '../../../contexts/dataContext';
 import { SideBarActionsContext } from '../../../contexts/sideBarActionsContext';
-import { ListItemsContext } from '../../../contexts/listItemsContext';
 import DesignIcon from '../../../assets/images/icon.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,37 +33,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TabsMobile = (props) => {
-  const context = React.useContext(ListItemsContext);
+  const contextSide = React.useContext(SideBarActionsContext);
+  const contextData = React.useContext(DataActionsContext);
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
 
   return (
     <> 
-      <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{context.courses.title}</Typography>
+      <Typography components={'h2'} variant="h6" className="mb-3" color="primary"><img src={DesignIcon} alt="icon" className={classes.iconTitle} />{contextData.courses.title}</Typography>
       <div className={classes.root}>
         <div className={classes.contentTabs}>
-          <AntTabs className={classes.menuTabs} value={value} onChange={handleChange} aria-label="ant example">
+          <AntTabs className={classes.menuTabs} value={contextSide.valueTab} onChange={contextSide.handleChange} aria-label="ant example">
             <AntTab label="Contenido" {...a11yProps(0)} />
-            <AntTab label="Notas" {...a11yProps(1)} />
             <AntTab label="Marcadores" {...a11yProps(2)} />
+            <AntTab label="Notas" {...a11yProps(1)} />
+            
             <AntTab label="Archivos y Enlaces" {...a11yProps(3)} />
           </AntTabs >
           <div className={classes.tabContainer}>
-            <TabPanel value={value} index={0}>
+            <TabPanel value={contextSide.valueTab} index={0}>
               {props.children}
             </TabPanel>
-            <TabPanel value={value} index={1}>
-              <NotesComponent />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={contextSide.valueTab} index={1}>
               <MarkersComponent />
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={contextSide.valueTab} index={2}>
+              <NotesComponent />
+            </TabPanel>
+            <TabPanel value={contextSide.valueTab} index={3}>
               <ListFiles />
             </TabPanel>
           </div>

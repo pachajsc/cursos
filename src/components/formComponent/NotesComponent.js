@@ -25,6 +25,7 @@ const NotesComponent = () => {
 	const addUser = user => {
 		user.id = users.length + 1
 		setUsers([...users, user])
+		setAddNotes(false)
 	}
 
 	const deleteUser = id => {
@@ -35,7 +36,7 @@ const NotesComponent = () => {
 
 	const updateUser = (id, updatedUser) => {
 		setEditing(false)
-
+		setAddNotes(false)
 		setUsers(users.map(user => (user.id === id ? updatedUser : user)))
 	}
 
@@ -57,7 +58,7 @@ const NotesComponent = () => {
 
 								<EditUserForm
 									editing={editing}
-									setEditing={setEditing}
+									onClose={()=> setAddNotes(false)}
 									currentUser={currentUser}
 									updateUser={updateUser}
 								/>

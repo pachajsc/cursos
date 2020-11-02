@@ -6,6 +6,7 @@ import { AppBar, Toolbar, IconButton, Hidden } from '@material-ui/core';
 import { Menu, ChevronLeft, AspectRatio, RateReview } from '@material-ui/icons';
 import { SideBarActionsContext } from '../contexts/sideBarActionsContext';
 import { ListItemsContext } from '../contexts/listItemsContext';
+import { DataActionsContext } from '../contexts/dataContext';
 import logo from '../assets/images/logo.png'
 
 const drawerWidth = 320;
@@ -70,6 +71,7 @@ const NavBar = () => {
  
   const contextList = React.useContext(ListItemsContext);
   const contextSide = React.useContext(SideBarActionsContext)
+  const contextData = React.useContext(DataActionsContext);
   const classes = useStyles();
   return (
     <>
@@ -120,7 +122,7 @@ const NavBar = () => {
             </Hidden>
           </div>
         </div>
-        {contextList.courses.topics[contextList.selectedTopic].subTopics[contextList.selectedSubtopic].options && <ProgressBar value={Math.ceil(((contextList.options + 1) / (contextList.maxOptions)) * 100)} />}
+        {contextData.courses.topics[contextList.selectedTopic].subTopics[contextList.selectedSubtopic].options && <ProgressBar value={Math.ceil(((contextList.options + 1) / (contextList.maxOptions)) * 100)} />}
       </AppBar>
     </>
   );

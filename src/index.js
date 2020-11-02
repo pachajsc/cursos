@@ -10,16 +10,18 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from "./assets/theme"
 import ListItemsContextTag from './contexts/listItemsContext';
 import SideBarActionsContextTag from './contexts/sideBarActionsContext';
-
+import DataActionsContextTag from './contexts/dataContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-    <SideBarActionsContextTag>
-      <ListItemsContextTag>
-        <App />
-      </ListItemsContextTag>
-      </SideBarActionsContextTag>
+      <DataActionsContextTag>
+        <SideBarActionsContextTag>
+          <ListItemsContextTag>
+            <App />
+          </ListItemsContextTag>
+        </SideBarActionsContextTag>
+      </DataActionsContextTag>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
