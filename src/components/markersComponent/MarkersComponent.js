@@ -2,7 +2,6 @@ import React, { useState, Fragment } from 'react'
 import AddUserForm from './forms/AddMarkForm'
 import EditUserForm from './forms/EditMarkForm'
 import UserTable from './list/MarkList'
-import { Typography, Grid } from '@material-ui/core';
 import { SideBarActionsContext } from '../../contexts/sideBarActionsContext';
 
 const MarkersComponent = () => {
@@ -13,13 +12,12 @@ const MarkersComponent = () => {
 	 	{ id: 3,  description: 'descripcion 3', time:40 },
 	 ]
 
-	const initialFormState = { id: null, time: '', description: '' }
+	const initialFormState = { id: null, description: '', time: '' }
 
 	// Setting state
 	const [users, setUsers] = useState(videoMarkData)
 	const [currentUser, setCurrentUser] = useState(initialFormState)
 	const [editing, setEditing] = useState(false)
-	
     const contextSide = React.useContext(SideBarActionsContext);
 
 	// CRUD operations
@@ -27,7 +25,7 @@ const MarkersComponent = () => {
 		user.id = users.length + 1
         setUsers([...users, user])
         contextSide.setAddMarker(false)
-        contextSide.setmarkTime('')
+        contextSide.setmarkTime(false)
 	}
 
 	const deleteUser = id => {

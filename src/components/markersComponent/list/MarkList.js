@@ -36,7 +36,7 @@ const MarkList = props => {
       {props.users.length > 0 ? (
         props.users.map((user, index) => (
           <div key={user.id}>
-            <Typography variant="caption" className={classes.timeText}>00:{user.time ? user.time : contextSide.markTimePosition.time}hs</Typography>
+            <Typography variant="caption" className={classes.timeText}>{user.time}s</Typography>
             <Grid container
               direction="row"
               justify="space-between"

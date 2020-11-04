@@ -14,7 +14,7 @@ const Courses = () => {
     const context = React.useContext(ListItemsContext);
     const contextData = React.useContext(DataActionsContext);
     const contextSide = React.useContext(SideBarActionsContext)
-
+    console.log('position:', contextSide.markTimePosition.time)
 
     return (
         <>
@@ -31,8 +31,7 @@ const Courses = () => {
                                             <Vimeo
                                                 onEnd={context.handleEndVideo()}
                                                 paused={contextSide.markTime}
-                                                //onCueChange={contextSide.markTimePosition}
-                                                //onCuePoint={contextSide.markTime}
+                                                start={contextSide.markTimePosition.time}
                                                 onPause={time => contextSide.setMarkTimePosition({time: time.seconds})}
                                                 allowfullscreen
                                                 video={contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
@@ -40,7 +39,7 @@ const Courses = () => {
                                             />
                                             
                                         </div>
-                                        <ActionsVideo handleCreate={contextSide.handlePosition}/>
+                                        <ActionsVideo handleCreate={()=>contextSide.handlePosition()}/>
                                         
                                         </>
                                     )

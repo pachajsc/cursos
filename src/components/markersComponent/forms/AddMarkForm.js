@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { Grid, TextField, Button } from '@material-ui/core'
 const AddMarkForm = props => {
-	const initialFormState = { id: null, description: '' }
+	const initialFormState = { id: null, description: '', time: '' }
 	const [user, setUser] = useState(initialFormState)
 
 	const handleInputChange = event => {
 		const { name, value } = event.target
-
 		setUser({ ...user, [name]: value })
 	}
 
@@ -14,7 +13,7 @@ const AddMarkForm = props => {
 		<form
 			onSubmit={event => {
 				event.preventDefault()
-				if (!user.description) return
+				if (!user.description && !user.time) return
 
 				props.addUser(user)
 				setUser(initialFormState)
