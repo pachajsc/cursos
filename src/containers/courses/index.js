@@ -14,92 +14,156 @@ const Courses = () => {
     const context = React.useContext(ListItemsContext);
     const contextData = React.useContext(DataActionsContext);
     const contextSide = React.useContext(SideBarActionsContext)
+
     console.log('position:', contextSide.markTimePosition.time)
+    const [times, setTime] = React.useState(contextSide.markTimePosition.time);
+    const [video, setVideo] = React.useState(
+      contextData.courses.topics[context.selectedTopic].subTopics[
+        context.selectedSubtopic
+      ].video
+    );
+    
+    
+    React.useEffect(() => {
+      setTime(contextSide.markTimePosition.time);
+      return () =>
+        setVideo(
+          contextData.courses.topics[context.selectedTopic].subTopics[
+            context.selectedSubtopic
+          ].video
+        );
+    }, [contextSide.markTimePosition, contextSide.markTimePosition.time]);
+  
+    console.log(times);
 
     return (
-        <>
-            <Layout>
-                <ContentLayout>
-                    {contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].options === undefined ? (
-                        <>
+      <>
+        <Layout>
+          <ContentLayout>
+            {contextData.courses.topics[context.selectedTopic].subTopics[
+              context.selectedSubtopic
+            ].options === undefined ? (
+              <>
+                {contextData.courses.topics[context.selectedTopic].subTopics[
+                  context.selectedSubtopic
+                ].video && (
+                  <>
+                    <div className={classes.videoWrapper}>
+                      <Vimeo
+                        onEnd={context.handleEndVideo()}
+                        paused={contextSide.markTime}
+                        start={times}
+                        onPause={(time) =>
+                          contextSide.setMarkTimePosition({
+                            time: time.seconds,
+                          })
+                        }
+                        onReady={(play) => {
+                          play.setCurrentTime(times);
+                        }}
+                        allowfullscreen
+                        video={video}
+                        autoplay
+                      />
+                    </div>
+                    <ActionsVideo
+                      handleCreate={() => contextSide.handlePosition()}
+                    />
+                  </>
+                )}
+                <Hidden mdUp>
+                  <Box p={1}>
+                    <TabsMobile>
+                      <Typography variant={"h6"}>
+                        {
+                          contextData.courses.topics[context.selectedTopic]
+                            .subTopics[context.selectedSubtopic].title
+                        }
+                      </Typography>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            contextData.courses.topics[context.selectedTopic]
+                              .subTopics[context.selectedSubtopic].description,
+                        }}
+                      />
+                    </TabsMobile>
+                  </Box>
+                </Hidden>
+                <Hidden smDown>
+                  <Box p={1}>
+                    <Typography variant={"h6"}>
+                      {
+                        contextData.courses.topics[context.selectedTopic]
+                          .subTopics[context.selectedSubtopic].title
+                      }
+                    </Typography>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          contextData.courses.topics[context.selectedTopic]
+                            .subTopics[context.selectedSubtopic].description,
+                      }}
+                    />
+                  </Box>
+                </Hidden>
+              </>
+            ) : (
+              <>
+                <p>
+                  {contextData.courses.topics[context.selectedTopic].subTopics[
+                    context.selectedSubtopic
+                  ].options[context.options].title ? (
+                    <>
+                      <Hidden mdUp>
+                        <Box p={1}>
+                          <TabsMobile>
                             {
-                                contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video && 
-                                    
-                                    (
-                                        <>
-                                        <div className={classes.videoWrapper}>
-                                            <Vimeo
-                                                onEnd={context.handleEndVideo()}
-                                                paused={contextSide.markTime}
-                                                start={contextSide.markTimePosition.time}
-                                                onPause={time => contextSide.setMarkTimePosition({time: time.seconds})}
-                                                allowfullscreen
-                                                video={contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].video}
-                                                autoplay
-                                            />
-                                            
-                                        </div>
-                                        <ActionsVideo handleCreate={()=>contextSide.handlePosition()}/>
-                                        
-                                        </>
-                                    )
+                              contextData.courses.topics[context.selectedTopic]
+                                .subTopics[context.selectedSubtopic].options[
+                                context.options
+                              ].title
                             }
-                            <Hidden mdUp>
-                                <Box p={1}>
-                                    <TabsMobile>
-                                        <Typography variant={'h6'}>{contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
-                                        <div dangerouslySetInnerHTML={{ __html: contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].description }} />
-                                    </TabsMobile>
-                                </Box>
-                            </Hidden>
-                            <Hidden smDown>
-                                <Box p={1}>
-                                    <Typography variant={'h6'}>{contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].title}</Typography>
-                                    <div dangerouslySetInnerHTML={{ __html: contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].description }} />
-                                </Box>
-                            </Hidden>
-                           
-                        </>
-                    ) :
-                        (
-                            <>
-                                <p>
-                                    {contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].options[context.options].title ? (
-                                        <>
-                                        <Hidden mdUp>
-                                            <Box p={1}>
-                                                <TabsMobile>{contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].options[context.options].title}</TabsMobile>
-                                            </Box>
-                                        </Hidden>
-                                         <Hidden smDown>
-                                            <Box p={1}>
-                                                {contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].options[context.options].title}
-                                            </Box>
-                                        </Hidden>
-                                     </>
-                                    ) : (
-                                        <>
-                                            <div className={classes.videoWrapper}>
-                                                <Vimeo
-                                                    onEnd={() => context.setDisabledOption(false)}
-                                                    allowfullscreen
-                                                    video={contextData.courses.topics[context.selectedTopic].subTopics[context.selectedSubtopic].options[context.options].video}
-                                                    autoplay
-                                                    onReady={() => context.setDisabledOption(true)}
-                                                />
-
-                                            </div>
-                                            <ActionsVideo handleCreate={contextSide.handlePosition}/>
-                                        </>
-                                    )}
-                                </p>
-
-                            </>
-                        )}
-                </ContentLayout>
-            </Layout>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </>
+                          </TabsMobile>
+                        </Box>
+                      </Hidden>
+                      <Hidden smDown>
+                        <Box p={1}>
+                          {
+                            contextData.courses.topics[context.selectedTopic]
+                              .subTopics[context.selectedSubtopic].options[
+                              context.options
+                            ].title
+                          }
+                        </Box>
+                      </Hidden>
+                    </>
+                  ) : (
+                    <>
+                      <div className={classes.videoWrapper}>
+                        <Vimeo
+                          onEnd={() => context.setDisabledOption(false)}
+                          allowfullscreen
+                          video={
+                            contextData.courses.topics[context.selectedTopic]
+                              .subTopics[context.selectedSubtopic].options[
+                              context.options
+                            ].video
+                          }
+                          autoplay
+                          onReady={() => context.setDisabledOption(true)}
+                        />
+                      </div>
+                      <ActionsVideo handleCreate={contextSide.handlePosition} />
+                    </>
+                  )}
+                </p>
+              </>
+            )}
+          </ContentLayout>
+        </Layout>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </>
     );
 }
 
